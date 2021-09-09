@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "AddContacts";
+}
+<head>    
+    <scipt src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"></scipt>
+</head>
+<div class="container">
+    <div class="row">
+        <div class="input-field col m3">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="first_name" type="text" class="validate">
+            <label for=icon_prefix>Full Name</label>
+        </div>
+        <div class="input-field col m3">
+            <i class="material-icons prefix">email</i>
+            <input id="Email" type="email" class="validate">
+            <label for=icon-email>Email</label>
+        </div>
+        <div class="input-field col m3">
+            <i class="material-icons prefix">phone</i>
+            <input id="Phone_no" type="text" class="validate">
+            <label for=Phone>Phone No</label>
+        </div>
+        <div class="input-field col m3">
+            <i class="material-icons prefix">website</i>
+            <input id="website" type="text" class="validate">
+            <label for=website>Website</label>
+        </div>
+        <div class="input-field col m3">
+            <i class="material-icons prefix">type</i>
+            <select>
+                <option value="" selected>Type</option>
+                <option>Home</option>
+                <option>Office</option>
+                <option>Company</option>
+            </select>
+            <label for=type>Contact Type</label>
+        </div>
+
+
+    </div>
+    <div>
+        <button class="btn btn-light-deep-orange" style="border-radius:0px;">Save</button>
+    </div>
+</div>
+
+

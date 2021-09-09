@@ -130,6 +130,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1560,6 +1561,7 @@
     <Content Include="assets\vendors\quill\fonts\KaTeX_Math-Italic.woff2" />
     <Content Include="assets\vendors\sweetalert\.DS_Store" />
     <None Include="packages.config" />
+    <Content Include="Views\Contacts\AddContacts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
