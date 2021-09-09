@@ -1,48 +1,120 @@
-﻿
+﻿@model ContacBookApp.Models.ContactMeta
 @{
     ViewBag.Title = "AddContacts";
 }
-<head>    
-    <scipt src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"></scipt>
-</head>
-<div class="container">
-    <div class="row">
-        <div class="input-field col m3">
-            <i class="material-icons prefix">account_circle</i>
-            <input id="first_name" type="text" class="validate">
-            <label for=icon_prefix>Full Name</label>
-        </div>
-        <div class="input-field col m3">
-            <i class="material-icons prefix">email</i>
-            <input id="Email" type="email" class="validate">
-            <label for=icon-email>Email</label>
-        </div>
-        <div class="input-field col m3">
-            <i class="material-icons prefix">phone</i>
-            <input id="Phone_no" type="text" class="validate">
-            <label for=Phone>Phone No</label>
-        </div>
-        <div class="input-field col m3">
-            <i class="material-icons prefix">website</i>
-            <input id="website" type="text" class="validate">
-            <label for=website>Website</label>
-        </div>
-        <div class="input-field col m3">
-            <i class="material-icons prefix">type</i>
-            <select>
-                <option value="" selected>Type</option>
-                <option>Home</option>
-                <option>Office</option>
-                <option>Company</option>
-            </select>
-            <label for=type>Contact Type</label>
-        </div>
 
+<div class="row">
+    <div class="col s12">
+        <div id="html-validations" class="card card-tabs">
+            <div class="card-content">
+                <div class="card-title">
+                    <div class="row">
+                        <div class="col s12 m6 l10">
+                            <h4 class="card-title">Add Contacts</h4>
+                        </div>
+                        <div class="col s12 m6 l2">
+                        </div>
+                    </div>
+                </div>
+                <div id="html-view-validations">
+                    <form class="formValidate0" id="formValidate0" method="get">
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <label for="FullName">Full name*</label>
+                                @Html.TextBoxFor(x => x.FullName)
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="NickName">Nick Name *</label>
+                                @Html.TextBoxFor(x => x.NickName)
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="JobTitle">Job Title *</label>
+                                @Html.TextBoxFor(x => x.JobTitle)
 
-    </div>
-    <div>
-        <button class="btn btn-light-deep-orange" style="border-radius:0px;">Save</button>
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="CompanyName">Company Name *</label>
+                                @Html.TextBoxFor(x => x.CompanyName)
+
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="Website">URL *</label>
+                                @Html.TextBoxFor(x => x.Website)
+
+                            </div>
+
+                            <div class="input-field col s12">
+                                <table class="table" id="tblPhones">
+                                    <thead>
+                                        <tr style="background-color: #2196f3;color:white">
+                                            <th>Category</th>
+                                            <th>Phone</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                @Html.DropDownList("CategoryId", new SelectList(ViewBag.Categories, "ID", "CategoryName"))
+                                            </td>
+                                            <td><input type="text" placeholder="Phone" /></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="input-field col s12">
+                                <table class="table" id="tblEmails">
+                                    <thead>
+                                        <tr style="background-color: #2196f3;color:white">
+                                            <th>Category</th>
+                                            <th>Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                @Html.DropDownList("CategoryId", new SelectList(ViewBag.Categories, "ID", "CategoryName"))
+                                            </td>
+                                            <td><input type="text" placeholder="Email" /></td>
+                                        </tr>
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col s12">
+                                <p>Status</p>
+                                <p>
+                                    <label>
+                                        <input required value="Enable" name="Status" type="radio" checked />
+                                        <span>Active</span>
+                                    </label>
+                                </p>
+
+                                <label>
+                                    <input value="Disable" required name="Status" type="radio" />
+                                    <span>Deactive</span>
+                                </label>
+
+                            </div>
+
+                            <div class="input-field col s12">
+                                <button class="btn waves-effect waves-light right" type="submit" name="action">
+                                    Save
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </div>
+</form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 
+
+<script>
+    $.ajax({
+        url: '../home/save'
+    })
+</script>

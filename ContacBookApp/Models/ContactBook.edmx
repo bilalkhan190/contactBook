@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ContactDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ContactDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Categories">
           <Key>
             <PropertyRef Name="ID" />
@@ -39,6 +39,7 @@
           <Property Name="JobTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CompanyName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Website" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="UserImage" Type="nvarchar(max)" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" Nullable="false" />
@@ -73,6 +74,7 @@
           <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="10" />
           <Property Name="image" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
@@ -121,8 +123,7 @@
             <End Role="ContactPhones" EntitySet="ContactPhones" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ContactDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -149,28 +150,7 @@
           <Property Name="ContactMasterId" Type="Int64" Nullable="false" />
           <Property Name="CategoryId" Type="Int64" Nullable="false" />
           <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ContactMaster" Relationship="Self.FK_ContactEmails_ContactEmails" FromRole="ContactEmails" ToRole="ContactMasters" />
-        </EntityType>
-        <EntityType Name="ContactMaster">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
-          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Website" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int64" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="DeletedBy" Type="Int64" />
-          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="ContactEmails" Relationship="Self.FK_ContactEmails_ContactEmails" FromRole="ContactMasters" ToRole="ContactEmails" />
-          <NavigationProperty Name="ContactPhones" Relationship="Self.FK_ContactPhones_ContactMasters" FromRole="ContactMasters" ToRole="ContactPhones" />
+          <NavigationProperty Name="ContactMaster" Relationship="ContactDbModel.FK_ContactEmails_ContactEmails" FromRole="ContactEmail" ToRole="ContactMaster" />
         </EntityType>
         <EntityType Name="ContactPhone">
           <Key>
@@ -180,7 +160,7 @@
           <Property Name="ContactMasterId" Type="Int64" Nullable="false" />
           <Property Name="CategoryId" Type="Int64" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ContactMaster" Relationship="Self.FK_ContactPhones_ContactMasters" FromRole="ContactPhones" ToRole="ContactMasters" />
+          <NavigationProperty Name="ContactMaster" Relationship="ContactDbModel.FK_ContactPhones_ContactMasters" FromRole="ContactPhone" ToRole="ContactMaster" />
         </EntityType>
         <EntityType Name="Setting">
           <Key>
@@ -190,16 +170,55 @@
           <Property Name="Keys" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Contents" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityContainer Name="ContactEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="ContactEmails" EntityType="Self.ContactEmail" />
+          <EntitySet Name="ContactPhones" EntityType="Self.ContactPhone" />
+          <EntitySet Name="Settings" EntityType="Self.Setting" />
+          <EntitySet Name="ContactMasters" EntityType="ContactDbModel.ContactMaster" />
+          <EntitySet Name="Users" EntityType="ContactDbModel.User" />
+          <AssociationSet Name="FK_ContactEmails_ContactEmails" Association="ContactDbModel.FK_ContactEmails_ContactEmails">
+            <End Role="ContactMaster" EntitySet="ContactMasters" />
+            <End Role="ContactEmail" EntitySet="ContactEmails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContactPhones_ContactMasters" Association="ContactDbModel.FK_ContactPhones_ContactMasters">
+            <End Role="ContactMaster" EntitySet="ContactMasters" />
+            <End Role="ContactPhone" EntitySet="ContactPhones" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="ContactMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UserImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int64" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ContactEmails" Relationship="ContactDbModel.FK_ContactEmails_ContactEmails" FromRole="ContactMaster" ToRole="ContactEmail" />
+          <NavigationProperty Name="ContactPhones" Relationship="ContactDbModel.FK_ContactPhones_ContactMasters" FromRole="ContactMaster" ToRole="ContactPhone" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="CreatedBy" Type="Int64" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -207,45 +226,29 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_ContactEmails_ContactEmails">
-          <End Role="ContactMasters" Type="Self.ContactMaster" Multiplicity="1" />
-          <End Role="ContactEmails" Type="Self.ContactEmail" Multiplicity="*" />
+          <End Type="ContactDbModel.ContactMaster" Role="ContactMaster" Multiplicity="1" />
+          <End Type="ContactDbModel.ContactEmail" Role="ContactEmail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ContactMasters">
+            <Principal Role="ContactMaster">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="ContactEmails">
+            <Dependent Role="ContactEmail">
               <PropertyRef Name="ContactMasterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ContactPhones_ContactMasters">
-          <End Role="ContactMasters" Type="Self.ContactMaster" Multiplicity="1" />
-          <End Role="ContactPhones" Type="Self.ContactPhone" Multiplicity="*" />
+          <End Type="ContactDbModel.ContactMaster" Role="ContactMaster" Multiplicity="1" />
+          <End Type="ContactDbModel.ContactPhone" Role="ContactPhone" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ContactMasters">
+            <Principal Role="ContactMaster">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="ContactPhones">
+            <Dependent Role="ContactPhone">
               <PropertyRef Name="ContactMasterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ContactEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="ContactEmails" EntityType="Self.ContactEmail" />
-          <EntitySet Name="ContactMasters" EntityType="Self.ContactMaster" />
-          <EntitySet Name="ContactPhones" EntityType="Self.ContactPhone" />
-          <EntitySet Name="Settings" EntityType="Self.Setting" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_ContactEmails_ContactEmails" Association="Self.FK_ContactEmails_ContactEmails">
-            <End Role="ContactMasters" EntitySet="ContactMasters" />
-            <End Role="ContactEmails" EntitySet="ContactEmails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ContactPhones_ContactMasters" Association="Self.FK_ContactPhones_ContactMasters">
-            <End Role="ContactMasters" EntitySet="ContactMasters" />
-            <End Role="ContactPhones" EntitySet="ContactPhones" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -278,26 +281,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ContactMasters">
-            <EntityTypeMapping TypeName="ContactDbModel.ContactMaster">
-              <MappingFragment StoreEntitySet="ContactMasters">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="NickName" ColumnName="NickName" />
-                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="Website" ColumnName="Website" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
-                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ContactPhones">
             <EntityTypeMapping TypeName="ContactDbModel.ContactPhone">
               <MappingFragment StoreEntitySet="ContactPhones">
@@ -317,20 +300,42 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ContactMasters">
+            <EntityTypeMapping TypeName="ContactDbModel.ContactMaster">
+              <MappingFragment StoreEntitySet="ContactMasters">
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UserImage" ColumnName="UserImage" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ContactDbModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="image" ColumnName="image" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

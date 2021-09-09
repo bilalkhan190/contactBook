@@ -130,11 +130,17 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DAL\EntityFrameWork\EntityMapper.cs" />
+    <Compile Include="DAL\EntityFrameWork\AccountManager.cs" />
+    <Compile Include="DAL\IAccountManager.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\ApplicationHelper.cs" />
     <Compile Include="Models\Category.cs">
       <DependentUpon>ContactBook.tt</DependentUpon>
     </Compile>
@@ -162,6 +168,7 @@
     <Compile Include="Models\ContactPhone.cs">
       <DependentUpon>ContactBook.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MetaModel.cs" />
     <Compile Include="Models\Setting.cs">
       <DependentUpon>ContactBook.tt</DependentUpon>
     </Compile>
@@ -1501,6 +1508,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\data\locales\de.json" />
@@ -1562,6 +1570,7 @@
     <Content Include="assets\vendors\sweetalert\.DS_Store" />
     <None Include="packages.config" />
     <Content Include="Views\Contacts\AddContacts.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
