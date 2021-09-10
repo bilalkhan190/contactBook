@@ -24,7 +24,7 @@ namespace ContacBookApp.Controllers
 
             return View("Login");
         }
-
+        [HttpPost]
         public ActionResult Login(LoginMeta model)
         {
             AjaxReponse ajaxResponse = new AjaxReponse();
@@ -34,16 +34,62 @@ namespace ContacBookApp.Controllers
             var record = _AccountManager.ValidateUser(model.EmailAddress, Encrypt(model.Password));
             if (record != null)
             {
-                AddCookie("CurrentUserId", record.ID.ToString());
-                AddCookie("Role",record.ID.ToString());
+                AddSession("UserRecord", record);
+                if(!string.IsNullOrEmpty(model.RememberMe))
+                {
+                    AddCookie("EmailAddress", record.ID.ToString());
+                }
+           
             }
             else
             {
                 ajaxResponse.Status = false;
-                ajaxResponse.Message = "something went wrong.";
+                ajaxResponse.Message = "Invalid username or Password";
                 ajaxResponse.Type = EnumJQueryResponseType.MessageOnly;
             }
-            return Json(ajaxResponse,JsonRequestBehavior.AllowGet);
+            return Json(ajaxResponse, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Register()
+        {
+            return View("Register");
+        }
+        [HttpPost]
+        public ActionResult Register(RegisterMeta model)
+        {
+            AjaxReponse ajaxReponse = new AjaxReponse();
+            ajaxReponse.Message = "Registered Successfully Redirecting...";
+            ajaxReponse.Status = true;
+            ajaxReponse.Type = EnumJQueryResponseType.MessageAndRedirectWithDelay;
+            try
+            {
+                model.Password = Encrypt(model.Password);
+                User user = new User();
+                user.FullName = model.FullName;
+                user.Email = model.Email;
+                user.Password = model.Password;
+                user.CreatedDate = DateTime.Now;
+                user.CreatedBy = 0;
+                user.Status = EnumStatus.Enable;
+                user.image = string.Empty;
+                _AccountManager.CreateUser(user);
+                _AccountManager.Save();
+            }
+            catch (Exception ex)
+            {
+
+                ajaxReponse.Message = ex.Message;
+                ajaxReponse.Status = false;
+                ajaxReponse.Type = EnumJQueryResponseType.MessageOnly;
+            }
+           
+           
+               
+            
+
+            return View("Register");
         }
     }
+
+
 }

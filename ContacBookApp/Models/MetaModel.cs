@@ -30,7 +30,20 @@ namespace ContacBookApp.Models
         [DataType(DataType.Password)]
 
         public string Password { get; set; }
+        public string RememberMe { get; set; }
     }
 
+    public class RegisterMeta
+    {
+        [Required]
+        public string FullName { get; set; }
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+        [DataType(DataType.Password)]
+        [Compare("Password")]
+        public string ConfirmPassword { get; set; }
+    }
 
 }

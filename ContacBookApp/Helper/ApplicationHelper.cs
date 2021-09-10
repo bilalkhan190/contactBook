@@ -22,6 +22,20 @@ namespace ContacBookApp.Helper
             public const string MessageAndRedirect = "M-R";
             public const string MessageAndRedirectWithDelay = "M-R-D";
         }
+
+        public static class EnumStatus
+        {
+            public const string Enable = "Enable";
+            public const string Disable = "Disable";
+         
+        }
+
+        public static class EnumRoles
+        {
+            public const string User = "User";
+            public const string Admin = "Admin";
+
+        }
         public class AjaxReponse
         {
             public string Message { get; set; }
@@ -32,7 +46,28 @@ namespace ContacBookApp.Helper
         }
 
         #region Helper Functions
-
+        public static void AddSession(string _key, object _value)
+        {
+            HttpContext.Current.Session.Add(_key, _value);
+        }
+        public static object GetSession(string _key)
+        {
+            object ReturnObject = null;
+            var SessionObject = HttpContext.Current.Session[_key];
+            if (SessionObject != null)
+            {
+                ReturnObject = SessionObject;
+            }
+            return ReturnObject;
+        }
+        public static void RemoveSession(string _key)
+        {
+            var SessionObject = HttpContext.Current.Session[_key];
+            if (SessionObject != null)
+            {
+                HttpContext.Current.Session.Remove(_key);
+            }
+        }
         public static void AddCookie(string _key, string _value, int _numberOfHourAdd = 0)
         {
             System.Web.HttpCookie CookieObject = new System.Web.HttpCookie(_key);

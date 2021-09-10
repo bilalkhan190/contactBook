@@ -34,6 +34,7 @@
     <Property Name="JobTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="CompanyName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Website" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="UserImage" Type="nvarchar(max)" />
     <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="IsDeleted" Type="bit" Nullable="false" />
     <Property Name="CreatedBy" Type="bigint" Nullable="false" />
@@ -68,6 +69,7 @@
     <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Role" Type="nvarchar" MaxLength="10" />
     <Property Name="image" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="IsDeleted" Type="bit" Nullable="false" />

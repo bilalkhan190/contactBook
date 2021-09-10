@@ -9,5 +9,9 @@ namespace ContacBookApp.DAL
     public interface IAccountManager
     {
         User ValidateUser(string EmailAddress,string encryptedPassword);
+
+        void CreateUser(User model);
+
+        void Save();
     }
 }

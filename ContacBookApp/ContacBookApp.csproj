@@ -506,6 +506,9 @@
     <Content Include="assets\images\user\9.jpg" />
     <Content Include="assets\js\custom\custom-script.js" />
     <Content Include="assets\js\custom\custom-script.min.js" />
+    <Content Include="assets\js\functions.js" />
+    <Content Include="assets\js\jquery.unobtrusive-ajax.js" />
+    <Content Include="assets\js\jquery.unobtrusive-ajax.min.js" />
     <Content Include="assets\js\materialize.js" />
     <Content Include="assets\js\materialize.min.js" />
     <Content Include="assets\js\plugins.js" />
@@ -1571,6 +1574,7 @@
     <None Include="packages.config" />
     <Content Include="Views\Contacts\AddContacts.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

@@ -13,5 +13,11 @@ namespace ContacBookApp.DAL.EntityFrameWork
         {
             context = new ContactEntities();
         }
+
+        public void Save()
+        {
+            context.SaveChanges();
+        }
+
     }
 }
