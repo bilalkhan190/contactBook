@@ -20,7 +20,10 @@ namespace ContacBookApp.Helper
         {
             public const string MessageOnly = "M";
             public const string MessageAndRedirect = "M-R";
-            public const string MessageAndRedirectWithDelay = "M-R-D";
+            public const string MessageAndRedirectWithDelay = "M-DL";
+            public const string DataOnly = "D"; 
+            public const string MessageAndReload = "M-RL"; 
+            public const string MessageAndReloadWithDelay = "M-DRL"; 
         }
 
         public static class EnumStatus
@@ -42,6 +45,8 @@ namespace ContacBookApp.Helper
             public bool Status { get; set; }
             public string Type { get; set; }
             public string RedirectURL { get; set; }
+            public string Data { get; set; }
+            public string FieldID { get; set; }
      
         }
 
@@ -159,14 +164,18 @@ namespace ContacBookApp.Helper
 
         public static bool IsUserLogin()
         {
-            var UserId = GetCookie("CurrentUserId");
-            if (!string.IsNullOrEmpty(UserId))
+            var UserRecord = GetSession("UserRecord");
+            if (UserRecord != null)
             {
                 return true;
             }
             return false;
         }
        
+        public static User GetUserData()
+        {
+            return (User)GetSession("UserRecord");
+        }
         #endregion
     }
 }

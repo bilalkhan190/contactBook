@@ -21,8 +21,11 @@ namespace ContacBookApp.Controllers
         }
         public ActionResult Index()
         {
+            if (IsUserLogin())
+                return RedirectToAction("","contacts");
+            else
+                return View("Login");
 
-            return View("Login");
         }
         [HttpPost]
         public ActionResult Login(LoginMeta model)
@@ -31,21 +34,23 @@ namespace ContacBookApp.Controllers
             ajaxResponse.Status = true;
             ajaxResponse.Message = "Login successfull. redirecting...";
             ajaxResponse.Type = EnumJQueryResponseType.MessageAndRedirectWithDelay;
+            ajaxResponse.RedirectURL = ViewBag.WebsiteURL + "contacts";
             var record = _AccountManager.ValidateUser(model.EmailAddress, Encrypt(model.Password));
             if (record != null)
             {
                 AddSession("UserRecord", record);
                 if(!string.IsNullOrEmpty(model.RememberMe))
                 {
-                    AddCookie("EmailAddress", record.ID.ToString());
-                }
-           
+                    AddCookie("EmailAddress", record.Email);
+                    AddCookie("Password", record.Password);
+                }           
             }
             else
             {
                 ajaxResponse.Status = false;
                 ajaxResponse.Message = "Invalid username or Password";
                 ajaxResponse.Type = EnumJQueryResponseType.MessageOnly;
+                
             }
             return Json(ajaxResponse, JsonRequestBehavior.AllowGet);
         }
@@ -88,6 +93,15 @@ namespace ContacBookApp.Controllers
             
 
             return View("Register");
+        }
+
+        public ActionResult SignOut()
+        {
+            Session.RemoveAll();
+            Session.Abandon();
+            RemoveCookie("EmailAddress");
+            RemoveCookie("Password");            
+            return RedirectToAction("","account");
         }
     }
 

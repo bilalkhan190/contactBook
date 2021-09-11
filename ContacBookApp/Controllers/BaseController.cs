@@ -12,8 +12,6 @@ namespace ContacBookApp.Controllers
     {
         //we will create a request handler for every ajax request.
         public readonly ContactEntities context;
-        public long CurrentUserId = 0;
-        public string Role = string.Empty;
         public BaseController()
         {
             context = new ContactEntities();
@@ -25,8 +23,11 @@ namespace ContacBookApp.Controllers
             ViewBag.WebsiteURL = GetContentByKey(context, Website_URL);
             if (IsUserLogin())
             {
-                CurrentUserId = Convert.ToInt64(GetCookie("CurrentUserId"));
-                Role = GetCookie("CurrenteUserRole");
+               
+            }
+            else
+            {
+                filterContext.Result = new RedirectResult("account");
             }
 
             base.OnActionExecuting(filterContext);

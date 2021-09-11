@@ -23,6 +23,11 @@
     <!-- END: Page Level CSS-->
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="~/assets/css/custom/custom.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
     <!-- END: Custom CSS-->
 </head>
 <!-- END: Head-->
@@ -93,7 +98,7 @@
                         <li><a class="grey-text text-darken-1" href="page-faq.html"><i class="material-icons">help_outline</i> Help</a></li>
                         <li class="divider"></li>
                         <li><a class="grey-text text-darken-1" href="user-lock-screen.html"><i class="material-icons">lock_outline</i> Lock</a></li>
-                        <li><a class="grey-text text-darken-1" href="user-login.html"><i class="material-icons">keyboard_tab</i> Logout</a></li>
+                        <li><a class="grey-text text-darken-1" href="@Url.Action("signout","account")"><i class="material-icons">keyboard_tab</i> Logout</a></li>
                     </ul>
                 </div>
                 <nav class="display-none search-sm">
@@ -1115,7 +1120,8 @@
     <script src="~/assets/js/custom/custom-script.js"></script>
     <script src="~/assets/js/scripts/advance-ui-carousel.js"></script>
     <script src="~/assets/js/functions.js"></script>
-    @RenderSection("InLineScriptSection",false)
+    <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    @RenderSection("InLineScriptSection", false)
 </body>
 
 </html>

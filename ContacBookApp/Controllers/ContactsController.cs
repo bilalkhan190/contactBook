@@ -10,10 +10,10 @@ namespace ContacBookApp.Controllers
     public class ContactsController : BaseController
     {
         // GET: Contacts
-        public ActionResult AddContacts()
+        public ActionResult Index()
         {
             FillDropDown();
-            return View();
+            return View("AddContacts");
         }
 
         public void FillDropDown()
