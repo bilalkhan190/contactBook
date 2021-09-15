@@ -1572,9 +1572,10 @@
     <Content Include="assets\vendors\quill\fonts\KaTeX_Math-Italic.woff2" />
     <Content Include="assets\vendors\sweetalert\.DS_Store" />
     <None Include="packages.config" />
-    <Content Include="Views\Contacts\AddContacts.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Contacts\ContactList.cshtml" />
+    <Content Include="Views\Contacts\AddContact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

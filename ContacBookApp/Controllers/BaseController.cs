@@ -27,7 +27,7 @@ namespace ContacBookApp.Controllers
             }
             else
             {
-                filterContext.Result = new RedirectResult("account");
+                filterContext.Result = new RedirectResult("/");
             }
 
             base.OnActionExecuting(filterContext);

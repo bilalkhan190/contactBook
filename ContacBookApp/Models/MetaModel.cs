@@ -18,6 +18,13 @@ namespace ContacBookApp.Models
         public string CompanyName { get; set; }
         public string Website { get; set; }
         public string Status { get; set; }
+        public HttpPostedFileBase Image { get; set; }
+
+        public List<ContactPhone> lstContactPhones { get; set; } = new List<ContactPhone>();
+        public List<ContactEmail> lstContactEmails { get; set; } = new List<ContactEmail>();
+
+        
+
     }
 
     public class LoginMeta

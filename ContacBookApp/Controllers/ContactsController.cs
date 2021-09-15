@@ -12,9 +12,23 @@ namespace ContacBookApp.Controllers
         // GET: Contacts
         public ActionResult Index()
         {
-            FillDropDown();
-            return View("AddContacts");
+            ContactMeta contactMeta = new ContactMeta();
+            return View("ContactList");
         }
+        public ActionResult Add()
+        {
+            FillDropDown();
+            return View("AddContact");
+        }
+
+        [HttpPost]
+        public ActionResult Add(ContactMeta model)
+        {
+            FillDropDown();
+            return Json("");
+        }
+
+
 
         public void FillDropDown()
         {
