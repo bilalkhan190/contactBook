@@ -16,7 +16,7 @@ namespace ContacBookApp.Models
     public partial class ContactEntities : DbContext
     {
         public ContactEntities()
-            : base("name=ContactEntities")
+            : base("name=ContactBook")
         {
         }
     
@@ -27,9 +27,9 @@ namespace ContacBookApp.Models
     
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<ContactEmail> ContactEmails { get; set; }
+        public virtual DbSet<ContactMaster> ContactMasters { get; set; }
         public virtual DbSet<ContactPhone> ContactPhones { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
-        public virtual DbSet<ContactMaster> ContactMasters { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
 }

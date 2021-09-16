@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="ContactDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="ContactBookDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Categories">
     <Key>
       <PropertyRef Name="ID" />
@@ -34,7 +34,6 @@
     <Property Name="JobTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="CompanyName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Website" Type="nvarchar" MaxLength="500" Nullable="false" />
-    <Property Name="UserImage" Type="nvarchar(max)" />
     <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="IsDeleted" Type="bit" Nullable="false" />
     <Property Name="CreatedBy" Type="bigint" Nullable="false" />
@@ -68,12 +67,12 @@
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="Role" Type="nvarchar" MaxLength="10" />
-    <Property Name="image" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="image" Type="nvarchar(max)" />
     <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="IsDeleted" Type="bit" Nullable="false" />
-    <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+    <Property Name="CreatedBy" Type="bigint" />
     <Property Name="CreatedDate" Type="datetime" Nullable="false" />
     <Property Name="ModifiedBy" Type="bigint" />
     <Property Name="ModifiedDate" Type="datetime" />
@@ -102,7 +101,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="ContactDbModelStoreContainer">
+  <EntityContainer Name="ContactBookDbModelStoreContainer">
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContactEmails" EntityType="Self.ContactEmails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContactMasters" EntityType="Self.ContactMasters" Schema="dbo" store:Type="Tables" />

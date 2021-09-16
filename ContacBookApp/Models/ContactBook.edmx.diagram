@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9b2b7b39199242f785362edbc8fabb35" Name="Diagram1">
-        <EntityTypeShape EntityType="ContactDbModel.Category" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContactDbModel.ContactEmail" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContactDbModel.ContactPhone" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContactDbModel.Setting" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContactDbModel.ContactMaster" Width="1.5" PointX="1.125" PointY="1.25" />
-        <EntityTypeShape EntityType="ContactDbModel.User" Width="1.5" PointX="0.75" PointY="6.75" />
-        <AssociationConnector Association="ContactDbModel.FK_ContactEmails_ContactEmails" />
-        <AssociationConnector Association="ContactDbModel.FK_ContactPhones_ContactMasters" />
-        </Diagram>
+      <Diagram DiagramId="222df33b298640a6a559048cc1c2db52" Name="Diagram1">
+        <EntityTypeShape EntityType="ContactBookDbModel.Category" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContactBookDbModel.ContactEmail" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContactBookDbModel.ContactMaster" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContactBookDbModel.ContactPhone" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContactBookDbModel.Setting" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContactBookDbModel.User" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="ContactBookDbModel.FK_ContactEmails_ContactEmails" ManuallyRouted="false" />
+        <AssociationConnector Association="ContactBookDbModel.FK_ContactPhones_ContactMasters" ManuallyRouted="false" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

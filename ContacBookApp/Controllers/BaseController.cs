@@ -23,7 +23,8 @@ namespace ContacBookApp.Controllers
             ViewBag.WebsiteURL = GetContentByKey(context, Website_URL);
             if (IsUserLogin())
             {
-               
+                
+
             }
             else
             {

@@ -27,7 +27,6 @@ namespace ContacBookApp.Models
         public string JobTitle { get; set; }
         public string CompanyName { get; set; }
         public string Website { get; set; }
-        public string UserImage { get; set; }
         public string Status { get; set; }
         public bool IsDeleted { get; set; }
         public long CreatedBy { get; set; }
