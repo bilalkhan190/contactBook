@@ -134,9 +134,11 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DAL\EntityFrameWork\ContactServices.cs" />
     <Compile Include="DAL\EntityFrameWork\EntityMapper.cs" />
     <Compile Include="DAL\EntityFrameWork\AccountManager.cs" />
     <Compile Include="DAL\IAccountManager.cs" />
+    <Compile Include="DAL\IContactServices.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1572,9 +1574,10 @@
       <DependentUpon>ContactBook.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
-    <Content Include="Views\Contacts\AddContacts.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Contacts\ContactList.cshtml" />
+    <Content Include="Views\Contacts\AddContact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

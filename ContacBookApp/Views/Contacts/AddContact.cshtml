@@ -1,0 +1,189 @@
+﻿@model ContacBookApp.Models.ContactMeta
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "AddContacts";
+}
+
+@{var categoryRecords = JsonConvert.SerializeObject(new SelectList(ViewBag.Categories, "Id", "CategoryName")); }
+
+@section InLineScriptSection{
+    <script src="~/assets/vendors/select2/select2.full.min.js"></script>
+
+    <script>
+       
+
+        $(document).on("click", "button.removePhone", function () {
+         
+            $(this).parent("td").parent("tr").closest("tr").fadeOut();
+        })
+        function selectRefresh() {
+            $('.main .select2').select2({
+                placeholder: "Select an Option",
+                width: '100%'
+            });
+        }
+        $('body').on('DOMNodeInserted', 'select', function () {
+            $(this).select2();
+        });
+        $(document).ready(function () {
+            $('.select2').select2();
+        })
+        $(document).on("keypress", 'input.phone', function () {
+            if (!$(this).val().length > 0) {
+
+                let table = $("#tblPhones tbody");
+                let LastRowIndex = table.find('tr').length - 1;
+                var categoryRecords = JSON.parse('@Html.Raw(categoryRecords)');
+                let ddlCat = $("<select class='.select2'> </select>");
+                categoryRecords.forEach(function (item) {
+                    ddlCat.append(`<option value="${item.Value}"> ${item.Text}</option>`);
+                })
+                let newRow = ` <tr>
+                                        <td class='main'>
+                                          <select name="lstContactPhones[${table.find('tr').length}].CategoryId" class="browser-default">${ddlCat.html()}</select>
+                                        </td>
+                                        <td><input type="text"  style="padding-top:0.5%" name="lstContactPhones[${table.find('tr').length}].Phone" class="phone" placeholder="Phone" /></td>
+                                          <td> <button type='button' class='btn btn-xs btn-danger removePhone'><i class="material-icons">remove_circle</i> </button> </td>
+                                   </tr>`;
+                table.find('tr').eq(LastRowIndex).after(newRow);
+            }
+        });
+        $(document).on("keypress", 'input.email', function () {
+            if (!$(this).val().length > 0) {
+
+                let table = $("#tblEmails tbody");
+                let LastRowIndex = table.find('tr').length - 1;
+                var categoryRecords = JSON.parse('@Html.Raw(categoryRecords)');
+                let ddlCat = $("<select class='.select2'> </select>");
+                categoryRecords.forEach(function (item) {
+                    ddlCat.append(`<option value="${item.Value}"> ${item.Text}</option>`);
+                })
+                let newRow = ` <tr>
+                                        <td class='main'>
+                                          <select name="lstContactEmails[${table.find('tr').length}].CategoryId" class="browser-default">${ddlCat.html()}</select>
+                                        </td>
+                                        <td><input type="text"  style="padding-top:0.5%" name="lstContactEmails[${table.find('tr').length}].EmailAddress" class="email" placeholder="email"/></td>
+                                   </tr>`;
+                table.find('tr').eq(LastRowIndex).after(newRow);
+            }
+        });
+
+    </script>
+}
+<div class="row">
+    <div class="col s12">
+        <div id="html-validations" class="card card-tabs">
+            <div class="card-content">
+                <div class="card-title">
+                    <div class="row">
+                        <div class="col s12 m6 l10">
+                            <h4 class="card-title">Add Contacts</h4>
+                        </div>
+                        <div class="col s12 m6 l2">
+                        </div>
+                    </div>
+                </div>
+                <div id="html-view-validations">
+                    @using (Ajax.BeginForm("Add", "Contacts", new AjaxOptions() { HttpMethod = "POST", OnBegin = "OnBegin", OnSuccess = "OnSuccess", OnFailure = "OnFailure", OnComplete = "OnComplete" }, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <label for="FullName">Full name*</label>
+                                @Html.TextBoxFor(x => x.FullName)
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="NickName">Nick Name *</label>
+                                @Html.TextBoxFor(x => x.NickName)
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="JobTitle">Job Title *</label>
+                                @Html.TextBoxFor(x => x.JobTitle)
+
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="CompanyName">Company Name *</label>
+                                @Html.TextBoxFor(x => x.CompanyName)
+
+                            </div>
+                            <div class="input-field col s4">
+                                <label for="Website">URL *</label>
+                                @Html.TextBoxFor(x => x.Website)
+
+                            </div>
+                            @*<div class="input-field col s4">
+
+                                <input type="file" id="Image" name="Image" />*@
+
+                            @*</div>*@
+                            <div class="input-field col s12">
+                                <table class="table" id="tblPhones">
+                                    <thead>
+                                        <tr style="background-color: #2196f3;color:white">
+                                            <th>Category</th>
+                                            <th>Phone</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                @Html.DropDownList("lstContactPhones[0].CategoryId", new SelectList(ViewBag.Categories, "ID", "CategoryName"), new { @class = "browser-default" })
+                                            </td>
+                                            <td><input type="text" style="padding-top:0.5%" name="lstContactPhones[0].Phone" class="phone" placeholder="Phone" /></td>
+                                            <td></td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="input-field col s12">
+                                <table class="table" id="tblEmails">
+                                    <thead>
+                                        <tr style="background-color: #2196f3;color:white">
+                                            <th>Category</th>
+                                            <th>Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                @Html.DropDownList("CategoryId", new SelectList(ViewBag.Categories, "ID", "CategoryName"), new { @class = "browser-default" })
+                                            </td>
+                                            <td><input type="text" name="lstContactEmails[0].EmailAddress" class="email" style="padding-top:0.5%" placeholder="Email" /></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col s12">
+                                <p>Status</p>
+                                <p>
+                                    <label>
+                                        <input required value="Enable" name="Status" type="radio" checked />
+                                        <span>Active</span>
+                                    </label>
+                                </p>
+
+                                <label>
+                                    <input value="Disable" required name="Status" type="radio" />
+                                    <span>Deactive</span>
+                                </label>
+
+                            </div>
+
+                            <div class="input-field col s12">
+                                <button class="btn waves-effect waves-light right" type="submit">
+                                    Save
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

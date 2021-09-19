@@ -174,6 +174,7 @@ namespace ContacBookApp.Helper
        
         public static User GetUserData()
         {
+            //type casting the return data of session into user type
             return (User)GetSession("UserRecord");
         }
         #endregion
