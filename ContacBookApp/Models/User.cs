@@ -17,12 +17,12 @@ namespace ContacBookApp.Models
         public long ID { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public string Role { get; set; }
+        public string Password { get; set; }
         public string image { get; set; }
         public string Status { get; set; }
         public bool IsDeleted { get; set; }
-        public long CreatedBy { get; set; }
+        public Nullable<long> CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<long> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }

@@ -134,9 +134,11 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DAL\EntityFrameWork\ContactServices.cs" />
     <Compile Include="DAL\EntityFrameWork\EntityMapper.cs" />
     <Compile Include="DAL\EntityFrameWork\AccountManager.cs" />
     <Compile Include="DAL\IAccountManager.cs" />
+    <Compile Include="DAL\IContactServices.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1481,20 +1483,13 @@
     <Content Include="Global.asax" />
     <Content Include="Models\ContactBook.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ContactBook.Context.cs</LastGenOutput>
       <DependentUpon>ContactBook.edmx</DependentUpon>
+      <LastGenOutput>ContactBook.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\ContactBook.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ContactBook.edmx</DependentUpon>
       <LastGenOutput>ContactBook.cs</LastGenOutput>
-    </Content>
-    <EntityDeploy Include="Models\ContactBook.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ContactBook.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\ContactBook.edmx.diagram">
-      <DependentUpon>ContactBook.edmx</DependentUpon>
     </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1571,6 +1566,13 @@
     <Content Include="assets\vendors\quill\fonts\KaTeX_Main-Regular.woff2" />
     <Content Include="assets\vendors\quill\fonts\KaTeX_Math-Italic.woff2" />
     <Content Include="assets\vendors\sweetalert\.DS_Store" />
+    <EntityDeploy Include="Models\ContactBook.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ContactBook.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ContactBook.edmx.diagram">
+      <DependentUpon>ContactBook.edmx</DependentUpon>
+    </Content>
     <None Include="packages.config" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />

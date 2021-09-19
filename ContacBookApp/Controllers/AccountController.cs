@@ -75,6 +75,7 @@ namespace ContacBookApp.Controllers
                 user.Password = model.Password;
                 user.CreatedDate = DateTime.Now;
                 user.CreatedBy = 0;
+                user.Role = EnumRoles.User;
                 user.Status = EnumStatus.Enable;
                 user.image = string.Empty;
                 _AccountManager.CreateUser(user);

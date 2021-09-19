@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="ContactDbModelStoreContainer" CdmEntityContainer="ContactEntities">
+  <EntityContainerMapping StorageEntityContainer="ContactBookDbModelStoreContainer" CdmEntityContainer="ContactBook">
     <EntitySetMapping Name="Categories">
-      <EntityTypeMapping TypeName="ContactDbModel.Category">
+      <EntityTypeMapping TypeName="ContactBookDbModel.Category">
         <MappingFragment StoreEntitySet="Categories">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
@@ -18,7 +18,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ContactEmails">
-      <EntityTypeMapping TypeName="ContactDbModel.ContactEmail">
+      <EntityTypeMapping TypeName="ContactBookDbModel.ContactEmail">
         <MappingFragment StoreEntitySet="ContactEmails">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="ContactMasterId" ColumnName="ContactMasterId" />
@@ -27,8 +27,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ContactMasters">
+      <EntityTypeMapping TypeName="ContactBookDbModel.ContactMaster">
+        <MappingFragment StoreEntitySet="ContactMasters">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="Website" ColumnName="Website" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+          <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ContactPhones">
-      <EntityTypeMapping TypeName="ContactDbModel.ContactPhone">
+      <EntityTypeMapping TypeName="ContactBookDbModel.ContactPhone">
         <MappingFragment StoreEntitySet="ContactPhones">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="ContactMasterId" ColumnName="ContactMasterId" />
@@ -38,7 +58,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Settings">
-      <EntityTypeMapping TypeName="ContactDbModel.Setting">
+      <EntityTypeMapping TypeName="ContactBookDbModel.Setting">
         <MappingFragment StoreEntitySet="Settings">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Keys" ColumnName="Keys" />
@@ -46,42 +66,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ContactMasters">
-      <EntityTypeMapping TypeName="ContactDbModel.ContactMaster">
-        <MappingFragment StoreEntitySet="ContactMasters">
-          <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
-          <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="UserImage" ColumnName="UserImage" />
-          <ScalarProperty Name="Website" ColumnName="Website" />
-          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-          <ScalarProperty Name="NickName" ColumnName="NickName" />
-          <ScalarProperty Name="FullName" ColumnName="FullName" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="ContactDbModel.User">
+      <EntityTypeMapping TypeName="ContactBookDbModel.User">
         <MappingFragment StoreEntitySet="Users">
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Role" ColumnName="Role" />
           <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="FullName" ColumnName="FullName" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
