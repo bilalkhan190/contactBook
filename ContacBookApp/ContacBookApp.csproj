@@ -180,6 +180,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\custom\ContactList.css" />
     <Content Include="assets\css\custom\custom.css" />
     <Content Include="assets\css\custom\custom.min.css" />
     <Content Include="assets\css\layouts\style-horizontal.css" />

@@ -12,11 +12,11 @@ namespace ContacBookApp.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly ContactEntities context;
+        private readonly ContactBook context;
         private readonly IAccountManager _AccountManager;
         public AccountController()
         {
-            context = new ContactEntities();
+            context = new ContactBook();
             _AccountManager = new AccountManager();
         }
         public ActionResult Index()

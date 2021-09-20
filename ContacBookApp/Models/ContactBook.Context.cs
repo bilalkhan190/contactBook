@@ -13,9 +13,9 @@ namespace ContacBookApp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ContactEntities : DbContext
+    public partial class ContactBook : DbContext
     {
-        public ContactEntities()
+        public ContactBook()
             : base("name=ContactBook")
         {
         }

@@ -11,10 +11,10 @@ namespace ContacBookApp.Controllers
     public class BaseController : Controller
     {
         //we will create a request handler for every ajax request.
-        public readonly ContactEntities context;
+        public readonly ContactBook context;
         public BaseController()
         {
-            context = new ContactEntities();
+            context = new ContactBook();
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)

@@ -22,7 +22,7 @@ namespace ContacBookApp.Models
         public string image { get; set; }
         public string Status { get; set; }
         public bool IsDeleted { get; set; }
-        public Nullable<long> CreatedBy { get; set; }
+        public long CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<long> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }

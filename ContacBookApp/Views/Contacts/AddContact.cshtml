@@ -10,11 +10,12 @@
     <script src="~/assets/vendors/select2/select2.full.min.js"></script>
 
     <script>
-       
+
+        
 
         $(document).on("click", "button.removePhone", function () {
-         
-            $(this).parent("td").parent("tr").closest("tr").fadeOut();
+
+            $(this).parent("td").parent("tr").closest("tr").fadeOut().remove();
         })
         function selectRefresh() {
             $('.main .select2').select2({

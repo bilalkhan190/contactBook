@@ -8,10 +8,10 @@ namespace ContacBookApp.DAL.EntityFrameWork
 {
     public class EntityMapper
     {
-        protected readonly ContactEntities context;
+        protected readonly ContactBook context;
         public EntityMapper()
         {
-            context = new ContactEntities();
+            context = new ContactBook();
         }
 
         public void Save()

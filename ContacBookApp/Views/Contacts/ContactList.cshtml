@@ -1,17 +1,81 @@
-﻿
-@{
-    Layout = null;
+﻿@model IEnumerable<ContacBookApp.Models.ContactMaster>
+@using ContacBookApp.Helper;
+@section LinkStyleSection{
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">*@
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/assets/css/custom/ContactList.css" rel="stylesheet" />
+
+
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ContactList</title>
-</head>
-<body>
-    <div> 
+<div class="container bootstrap snippets bootdey">
+    <div class="row" style="margin-left:15%">
+        <div class="col s9">
+            <div class="panel panel-default">
+                <div class="panel-body p-t-0">
+                    <div class="input-group">
+                        <input type="text" id="example-input1-group2" name="example-input1-group2" class="form-control" placeholder="Search" style="width:85%">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-effect-ripple btn-primary"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+    <div class="row">
+        @if (Model != null)
+        {
+            foreach (var record in Model)
+            {
+                <div class="col s6">
+                    <div class="panel">
+                        <div class="panel-body p-t-10">
+                            <div class="media-main">
+                                <a class="pull-left" href="#">
+                                   
+                                    <div class="create-round-div" style="        background-color: rgb( @ApplicationHelper.GetRandomNumber(1,999),@ApplicationHelper.GetRandomNumber(1,999),@ApplicationHelper.GetRandomNumber(1,999))">  @record.FullName.ToUpper().Substring(0, 1) </div>
+                                    @*<img class="thumb-lg img-circle bx-s" src="https://bootdey.com/img/Content/user_1.jpg" alt="">*@
+                                </a>
+                                <div class="pull-right btn-group-sm">
+                                    <a href="#" class="green btn btn-reset tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="#" class="red btn btn-danger tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete">
+                                        <i class="fa fa-close"></i>
+                                    </a>
+                                </div>
+                                <div class="info">
+                                    <h4>@record.FullName</h4>
+                                    <p class="text-muted">@record.JobTitle  @ApplicationHelper.RandomString(6)</p>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <hr>
+                            <ul class="social-links list-inline p-b-10">
+                                <li>
+                                    <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Twitter"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+                                </li>
+                                <li>
+                                    <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Skype"><i class="fa fa-skype"></i></a>
+                                </li>
+                                <li>
+                                    <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Message"><i class="fa fa-envelope-o"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+
+
+    </div>
+</div>  

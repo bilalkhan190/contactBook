@@ -15,13 +15,13 @@ namespace ContacBookApp.Controllers
        readonly IContactServices services;
         public ContactsController()
         {
-            //services = new ContactServices();
+            services = new ContactServices();
         }
         // GET: Contacts
         public ActionResult Index()
         {
-            ContactMeta contactMeta = new ContactMeta();
-            return View("ContactList");
+            
+            return View("ContactList", services.getContacts());
         }
         public ActionResult Add()
         {
@@ -34,44 +34,67 @@ namespace ContacBookApp.Controllers
         {
             AjaxReponse ajaxResponse = new AjaxReponse();
 
-            using (var Context = new ContactEntities())
+            using(var Transaction = context.Database.BeginTransaction())
             {
-                using(var Transaction = context.Database.BeginTransaction())
-                {
                     
-                    try
-                    {
+                try
+                {
                         
-                        ajaxResponse.Message = "Your Contact succuessfully Created";
-                        ajaxResponse.Type = EnumJQueryResponseType.MessageOnly;
-                        ajaxResponse.Status = true;
-                        ajaxResponse.RedirectURL = ViewBag.WebsiteURL + "Contacts";
-                        ContactMaster contact = new ContactMaster()
-                        {
-                            FullName = model.FullName,
-                            ContactEmails = model.lstContactEmails,
-                            Website = model.Website,
-                            ContactPhones = model.lstContactPhones,
-                            CompanyName = model.CompanyName,
-                            JobTitle = model.JobTitle,
-                            CreatedDate = DateTime.Now,
-                            Status = model.Status,
-                            
-                        };
-                        services.createContact(contact);                      
-                        Transaction.Commit();
+                    ajaxResponse.Message = "Your Contact succuessfully Created";
+                    ajaxResponse.Type = EnumJQueryResponseType.MessageAndRedirectWithDelay;
+                    ajaxResponse.Status = true;
+                    ajaxResponse.RedirectURL = ViewBag.WebsiteURL + "Contacts";
 
-                    }
-                    catch (Exception ex)
+                    var currentUserData = GetUserData();
+                    ContactMaster contactMaster = new ContactMaster()
                     {
-                        ajaxResponse.Message = ex.Message;
-                        ajaxResponse.Type = EnumJQueryResponseType.MessageOnly;
-                        ajaxResponse.Status = false;
-                        Transaction.Rollback();
+                        FullName = model.FullName,
+                        NickName = model.NickName,
+                        Website = model.Website,
+                        CompanyName = model.CompanyName,
+                        JobTitle = model.JobTitle,
+                        CreatedBy = currentUserData.ID,
+                        CreatedDate = DateTime.Now,
+                        Status = model.Status,
+                            
+                    };
+                    if (model.lstContactEmails.Count > 0)
+                    {
+                        foreach (var emailRecord in model.lstContactEmails)
+                        {
+                            ContactEmail contactEmailRecord = new ContactEmail();
+                            contactEmailRecord.CategoryId = emailRecord.CategoryId;
+                            contactEmailRecord.ContactMasterId = contactMaster.ID;
+                            contactEmailRecord.EmailAddress = emailRecord.EmailAddress;
+                            services.createContactEmail(contactEmailRecord);
+                        }
                     }
+                    if (model.lstContactPhones.Count > 0)
+                    {
+                        foreach (var PhoneRecords in model.lstContactPhones)
+                        {
+                            ContactPhone contactPhone = new ContactPhone();
+                            contactPhone.CategoryId = PhoneRecords.CategoryId;
+                            contactPhone.ContactMasterId = contactMaster.ID;
+                            contactPhone.Phone = PhoneRecords.Phone;
+                            services.createContactPhone(contactPhone);
+                        }
+                    }
+                    services.createContact(contactMaster);
+                    services.Save();
+                    Transaction.Commit();
+
                 }
-              
+                catch (Exception ex)
+                {
+                    ajaxResponse.Message = ex.Message;
+                    ajaxResponse.Type = EnumJQueryResponseType.MessageOnly;
+                    ajaxResponse.Status = false;
+                    Transaction.Rollback();
+                }
             }
+              
+           
 
             return Json(ajaxResponse, JsonRequestBehavior.AllowGet);
         }
@@ -80,7 +103,7 @@ namespace ContacBookApp.Controllers
 
         public void FillDropDown()
         {
-            using(var context = new ContactEntities())
+            using(var context = new ContactBook())
             {
                ViewBag.Categories = context.Categories.ToList();
             }

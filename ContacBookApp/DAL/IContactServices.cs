@@ -10,6 +10,13 @@ namespace ContacBookApp.DAL
   public interface IContactServices
     {
         void createContact(ContactMaster model);
+        void createContactEmail(ContactEmail model);
+
+        void createContactPhone(ContactPhone model);
+        IEnumerable<ContactMaster> getContacts();
+        ContactMaster getById(int id);
+
+        void Save();
 
     }
 }

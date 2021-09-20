@@ -30,6 +30,7 @@
     <EntitySetMapping Name="ContactMasters">
       <EntityTypeMapping TypeName="ContactBookDbModel.ContactMaster">
         <MappingFragment StoreEntitySet="ContactMasters">
+          <ScalarProperty Name="UserImage" ColumnName="UserImage" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
           <ScalarProperty Name="NickName" ColumnName="NickName" />

@@ -35,6 +35,7 @@ namespace ContacBookApp.Models
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<long> DeletedBy { get; set; }
         public Nullable<System.DateTime> DeletedDate { get; set; }
+        public string UserImage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ContactEmail> ContactEmails { get; set; }

@@ -19,7 +19,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="bigint" Nullable="false" />
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ContactMasterId" Type="bigint" Nullable="false" />
     <Property Name="CategoryId" Type="bigint" Nullable="false" />
     <Property Name="EmailAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -28,12 +28,13 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="bigint" Nullable="false" />
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="NickName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="JobTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="CompanyName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Website" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="UserImage" Type="nvarchar(max)" />
     <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="IsDeleted" Type="bit" Nullable="false" />
     <Property Name="CreatedBy" Type="bigint" Nullable="false" />
@@ -67,12 +68,12 @@
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="image" Type="nvarchar(max)" />
+    <Property Name="Role" Type="nvarchar" MaxLength="10" />
+    <Property Name="image" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="IsDeleted" Type="bit" Nullable="false" />
-    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="CreatedBy" Type="bigint" Nullable="false" />
     <Property Name="CreatedDate" Type="datetime" Nullable="false" />
     <Property Name="ModifiedBy" Type="bigint" />
     <Property Name="ModifiedDate" Type="datetime" />

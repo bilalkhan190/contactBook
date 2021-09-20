@@ -151,7 +151,7 @@ namespace ContacBookApp.Helper
         #endregion
 
         #region CustomFunctions
-        public static string GetContentByKey(ContactEntities context,string Key)
+        public static string GetContentByKey(ContactBook context,string Key)
         {
             string WebsiteURL = string.Empty;
             var record = context.Settings.FirstOrDefault(x => x.Keys.Equals(Key));
@@ -176,6 +176,24 @@ namespace ContacBookApp.Helper
         {
             //type casting the return data of session into user type
             return (User)GetSession("UserRecord");
+        }
+
+        public static Random random = new Random();
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        private static readonly Random getrandom = new Random();
+
+        public static int GetRandomNumber(int min, int max)
+        {
+            lock (getrandom) // synchronize
+            {
+                return getrandom.Next(min, max);
+            }
         }
         #endregion
     }
