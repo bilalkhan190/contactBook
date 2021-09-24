@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<!-- PURCHASED FROM www.themeon.net/nifty/v2.9.1/index.html by COPYRIGHT/3.x [XR&CO'2014], Sat, 13 Jul 2019 12:24:29 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Lead Management System</title>
+
+    <!--STYLESHEET-->
+    <!--=================================================-->
+    <!--Open Sans Font [ OPTIONAL ]-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/assets/cache/site")
+    @if (IsSectionDefined("LinkStyleSection"))
+    {
+        @RenderSection("LinkStyleSection");
+    }
+    @if (IsSectionDefined("InLineStyleSection"))
+    {
+        @RenderSection("InLineStyleSection");
+    }
+</head>
+<body>
+    @RenderBody()
+
+    @Scripts.Render("~/assets/cache/jquery")
+    @Scripts.Render("~/assets/cache/core")
+    @if (IsSectionDefined("LinkScriptSection"))
+    {
+        @RenderSection("LinkScriptSection");
+    }
+    @Scripts.Render("~/assets/cache/function")
+    @if (IsSectionDefined("InLineScriptSection"))
+    {
+        @RenderSection("InLineScriptSection");
+    }
+</body>
+</html>

@@ -37,5 +37,15 @@ namespace ContacBookApp.DAL.EntityFrameWork
             return context.ContactMasters.Where(x => x.Status.Equals(EnumStatus.Enable) && x.
                 IsDeleted.Equals(false)).ToList();
         }
+
+        public ContactMeta GetUserCompleteRecord(int Id)
+        {
+            ContactMeta UserContactRecord = context.ContactMasters.Where(x => x.ID.Equals(Id))
+                .Select(s => new ContactMeta { ID = s.ID , CompanyName = s.CompanyName, FullName = s.FullName,JobTitle = s.JobTitle ,
+                NickName = s.NickName , Status = s.Status,Website = s.Website , lstContactEmails = s.ContactEmails.ToList() ,
+                lstContactPhones = s.ContactPhones.ToList()}).FirstOrDefault();
+            return UserContactRecord;
+                
+        }
     }
 }

@@ -23,10 +23,15 @@ namespace ContacBookApp.Controllers
             
             return View("ContactList", services.getContacts());
         }
-        public ActionResult Add()
+        public ActionResult Add(int? Id)
         {
             FillDropDown();
-            return View("AddContact");
+            ContactMeta contactMeta;
+            if (Id > 0)
+                contactMeta = services.GetUserCompleteRecord(Convert.ToInt32(Id));
+            else
+                contactMeta = new ContactMeta();
+            return View("AddContact",contactMeta);
         }
 
         [HttpPost]
@@ -44,29 +49,48 @@ namespace ContacBookApp.Controllers
                     ajaxResponse.Type = EnumJQueryResponseType.MessageAndRedirectWithDelay;
                     ajaxResponse.Status = true;
                     ajaxResponse.RedirectURL = ViewBag.WebsiteURL + "Contacts";
-
                     var currentUserData = GetUserData();
-                    ContactMaster contactMaster = new ContactMaster()
+                    ContactMaster contactMaster = new ContactMaster();
+                    if (model.ID > 0)
                     {
-                        FullName = model.FullName,
-                        NickName = model.NickName,
-                        Website = model.Website,
-                        CompanyName = model.CompanyName,
-                        JobTitle = model.JobTitle,
-                        CreatedBy = currentUserData.ID,
-                        CreatedDate = DateTime.Now,
-                        Status = model.Status,
-                            
-                    };
+                        contactMaster = context.ContactMasters.FirstOrDefault(x => x.ID.Equals(model.ID));
+                        contactMaster.ModifiedBy = currentUserData.ID;
+                        contactMaster.ModifiedDate = DateTime.Now;
+                        ajaxResponse.Message = "Your Contact succuessfully Updated";
+
+                    }
+                    contactMaster.FullName = model.FullName;
+                    contactMaster.NickName = model.NickName;
+                    contactMaster.Website = model.Website;
+                    contactMaster.CompanyName = model.CompanyName;
+                    contactMaster.JobTitle = model.JobTitle;
+                    contactMaster.Status = model.Status;
+                    if (!(model.ID > 0))
+                    {
+                        contactMaster.CreatedBy = currentUserData.ID;
+                        contactMaster.CreatedDate = DateTime.Now;
+                        services.createContact(contactMaster);
+                    }
                     if (model.lstContactEmails.Count > 0)
                     {
                         foreach (var emailRecord in model.lstContactEmails)
                         {
-                            ContactEmail contactEmailRecord = new ContactEmail();
+                            bool isRecordWillAdded = false;
+                            ContactEmail contactEmailRecord = context.ContactEmails.FirstOrDefault(x => x.ID.Equals(emailRecord.ID));
+                            if(contactEmailRecord == null)
+                            {
+                                contactEmailRecord = new ContactEmail();
+                                isRecordWillAdded = true;
+                                
+                            }
                             contactEmailRecord.CategoryId = emailRecord.CategoryId;
                             contactEmailRecord.ContactMasterId = contactMaster.ID;
                             contactEmailRecord.EmailAddress = emailRecord.EmailAddress;
-                            services.createContactEmail(contactEmailRecord);
+                            if (isRecordWillAdded)
+                            {                               
+                                services.createContactEmail(contactEmailRecord);
+                            }
+                            services.Save();
                         }
                     }
                     if (model.lstContactPhones.Count > 0)
@@ -80,7 +104,7 @@ namespace ContacBookApp.Controllers
                             services.createContactPhone(contactPhone);
                         }
                     }
-                    services.createContact(contactMaster);
+                    
                     services.Save();
                     Transaction.Commit();
 

@@ -33,12 +33,12 @@
                         <div class="panel-body p-t-10">
                             <div class="media-main">
                                 <a class="pull-left" href="#">
-                                   
+
                                     <div class="create-round-div" style="        background-color: rgb( @ApplicationHelper.GetRandomNumber(1,999),@ApplicationHelper.GetRandomNumber(1,999),@ApplicationHelper.GetRandomNumber(1,999))">  @record.FullName.ToUpper().Substring(0, 1) </div>
                                     @*<img class="thumb-lg img-circle bx-s" src="https://bootdey.com/img/Content/user_1.jpg" alt="">*@
                                 </a>
                                 <div class="pull-right btn-group-sm">
-                                    <a href="#" class="green btn btn-reset tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit">
+                                    <a href="@Url.Action("add","contacts",new {Id = record.ID })" class="green btn btn-reset tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit">
                                         <i class="fa fa-pencil"></i>
                                     </a>
                                     <a href="#" class="red btn btn-danger tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete">
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="info">
                                     <h4>@record.FullName</h4>
-                                    <p class="text-muted">@record.JobTitle  @ApplicationHelper.RandomString(6)</p>
+                                    <p class="text-muted">@record.JobTitle</p>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -78,4 +78,9 @@
 
 
     </div>
+</div>
+
+<div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top">
+    <a class="btn-floating btn-large gradient-45deg-light-blue-cyan gradient-shadow" href="@Url.Action("add","contacts")"><i class="material-icons">add</i></a>
+  
 </div>  

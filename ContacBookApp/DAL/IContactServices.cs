@@ -15,7 +15,7 @@ namespace ContacBookApp.DAL
         void createContactPhone(ContactPhone model);
         IEnumerable<ContactMaster> getContacts();
         ContactMaster getById(int id);
-
+        ContactMeta GetUserCompleteRecord(int ID);
         void Save();
 
     }
