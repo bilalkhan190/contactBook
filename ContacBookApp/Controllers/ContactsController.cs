@@ -73,10 +73,14 @@ namespace ContacBookApp.Controllers
                     }
                     if (model.lstContactEmails.Count > 0)
                     {
+                        List<ContactEmail> contactEmailRecords = context.ContactEmails.Where(x => x.ContactMasterId.Equals(contactMaster.ID)).ToList();
+                        var recordToDelete = contactEmailRecords.Where(x => !model.lstContactEmails.Any(s => s.ID.Equals(x.ID))).ToList();
+                        recordToDelete.ForEach(x => x.ID = 1);
                         foreach (var emailRecord in model.lstContactEmails)
                         {
+                           
                             bool isRecordWillAdded = false;
-                            ContactEmail contactEmailRecord = context.ContactEmails.FirstOrDefault(x => x.ID.Equals(emailRecord.ID));
+                            ContactEmail contactEmailRecord = contactEmailRecords.FirstOrDefault(x => x.ID.Equals(emailRecord.ID));
                             if(contactEmailRecord == null)
                             {
                                 contactEmailRecord = new ContactEmail();
@@ -97,11 +101,22 @@ namespace ContacBookApp.Controllers
                     {
                         foreach (var PhoneRecords in model.lstContactPhones)
                         {
-                            ContactPhone contactPhone = new ContactPhone();
-                            contactPhone.CategoryId = PhoneRecords.CategoryId;
-                            contactPhone.ContactMasterId = contactMaster.ID;
-                            contactPhone.Phone = PhoneRecords.Phone;
-                            services.createContactPhone(contactPhone);
+                            bool IsPhonewillbeAdded = false;
+                            ContactPhone record = context.ContactPhones.Where(x => x.ID.Equals(model.ID)).FirstOrDefault();
+                            if (record == null)
+                            {
+                               record = new ContactPhone();
+                                IsPhonewillbeAdded = true;
+                            }
+                            record.CategoryId = PhoneRecords.CategoryId;
+                            record.ContactMasterId = contactMaster.ID;
+                            record.Phone = PhoneRecords.Phone;
+                            if (IsPhonewillbeAdded)
+                            { 
+                               
+                                services.createContactPhone(record);
+                            }
+                            services.Save();
                         }
                     }
                     

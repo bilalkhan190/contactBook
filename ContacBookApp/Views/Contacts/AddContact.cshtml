@@ -134,29 +134,31 @@
                                             int count = 0;
                                             foreach (var item in Model.lstContactPhones)
                                             {
-                                                <tr>
-                                                    <td>
-                                                        @Html.Hidden("ID",item.ID)
-                                                        @Html.DropDownList("lstContactPhones[" + count + " ].CategoryId", new SelectList(ViewBag.Categories, "ID", "CategoryName", item.CategoryId), new { @class = "browser-default" })
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" style="padding-top:0.5%" name="lstContactPhones[@count].Phone" class="phone" value="@item.Phone" placeholder="Phone" />
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.Hidden("ID", item.ID)
+                                                @Html.DropDownList("lstContactPhones[" + count + " ].CategoryId", new SelectList(ViewBag.Categories, "ID", "CategoryName", item.CategoryId), new { @class = "browser-default" })
+                                            </td>
+                                            <td>
+                                                <input type="text" style="padding-top:0.5%" name="lstContactPhones[@count].Phone" class="phone" value="@item.Phone" placeholder="Phone" />
+                                            <td> <button type='button' class='btn btn-xs btn-danger removePhone'><i class="material-icons">remove_circle</i> </button> </td>
+                                            </td>
+                                            <td></td>
+                                        </tr>
                                                 count++;
                                             }
                                         }
                                         else
                                         {
-                                            <tr>
-                                                <td>
-                                                    
-                                                    @Html.DropDownList("lstContactPhones[0].CategoryId", new SelectList(ViewBag.Categories, "ID", "CategoryName"), new { @class = "browser-default" })
-                                                </td>
-                                                <td><input type="text" style="padding-top:0.5%" name="lstContactPhones[0].Phone" class="phone" placeholder="Phone" /></td>
-                                                <td></td>
-                                            </tr>
+                                    <tr>
+                                        <td>
+
+                                            @Html.DropDownList("lstContactPhones[0].CategoryId", new SelectList(ViewBag.Categories, "ID", "CategoryName"), new { @class = "browser-default" })
+                                        </td>
+                                        <td><input type="text" style="padding-top:0.5%" name="lstContactPhones[0].Phone" class="phone" placeholder="Phone" /></td>
+                                        <td> <button type='button' class='btn btn-xs btn-danger removePhone'><i class="material-icons">remove_circle</i> </button> </td>
+                                        <td></td>
+                                    </tr>
 
                                         }
 
@@ -177,24 +179,27 @@
                                             int count = 0;
                                             foreach (var Emailrecord in Model.lstContactEmails)
                                             {
-                                                <tr>
-                                                    <td>
-                                                        @Html.Hidden("ID",Emailrecord.ID)
-                                                        @Html.DropDownList("CategoryId", new SelectList(ViewBag.Categories, "ID", "CategoryName", Emailrecord.CategoryId), new { @class = "browser-default" })
-                                                    </td>
-                                                    <td><input type="text" name="lstContactEmails[@count].EmailAddress" value="@Emailrecord.EmailAddress" class="email" style="padding-top:0.5%" placeholder="Email" /></td>
-                                                </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.Hidden("lstContactEmails[" + count + "].ID", Emailrecord.ID)
+                                                @Html.DropDownList("lstContactEmails["+count+"].CategoryId", new SelectList(ViewBag.Categories, "ID", "CategoryName", Emailrecord.CategoryId), new { @class = "browser-default" })
+                                            </td>
+                                            <td><input type="text" name="lstContactEmails[@count].EmailAddress" value="@Emailrecord.EmailAddress" class="email" style="padding-top:0.5%" placeholder="Email" /></td>
+                                            <td> <button type='button' class='btn btn-xs btn-danger removePhone'><i class="material-icons">remove_circle</i> </button> </td>
+                                        </tr>
+                                                count++;
                                             }
-                                            count++;
+
                                         }
                                         else
                                         {
-                                            <tr>
-                                                <td>
-                                                    @Html.DropDownList("CategoryId", new SelectList(ViewBag.Categories, "ID", "CategoryName"), new { @class = "browser-default" })
-                                                </td>
-                                                <td><input type="text" name="lstContactEmails[0].EmailAddress" class="email" style="padding-top:0.5%" placeholder="Email" /></td>
-                                            </tr>
+                                    <tr>
+                                        <td>
+                                            @Html.DropDownList("CategoryId", new SelectList(ViewBag.Categories, "ID", "CategoryName"), new { @class = "browser-default" })
+                                        </td>
+                                        <td><input type="text" name="lstContactEmails[0].EmailAddress" class="email" style="padding-top:0.5%" placeholder="Email" /></td>
+                                        <td> <button type='button' class='btn btn-xs btn-danger removePhone'><i class="material-icons">remove_circle</i> </button> </td>
+                                    </tr>
                                         }
 
 

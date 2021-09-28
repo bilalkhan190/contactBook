@@ -8,79 +8,117 @@
 
 }
 
-<div class="container bootstrap snippets bootdey">
-    <div class="row" style="margin-left:15%">
-        <div class="col s9">
-            <div class="panel panel-default">
-                <div class="panel-body p-t-0">
-                    <div class="input-group">
-                        <input type="text" id="example-input1-group2" name="example-input1-group2" class="form-control" placeholder="Search" style="width:85%">
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-effect-ripple btn-primary"><i class="fa fa-search"></i></button>
-                        </span>
+@section InLineScriptSection{
+    <script>
+            $(document).on("click", "a.remove", function () {
+                var Id = $(this).attr("data-id");
+                $.confirm({
+                    title: 'Warning',
+                    content: 'Are you fucking sure want to delete mother fucker?',
+                    buttons: {
+                          somethingElse: {
+                            text: 'Yes Delete it',
+                            btnClass: 'btn-danger',
+                            action: function () {
+
+                            $.ajax({
+                                    url: "@ViewBag.WebsiteURL" + "contacts",
+                                    type: "post",
+                                    data: { Id: Id },
+                                    success: OnSuccesss,
+                                    error: OnFailure
+                                })
+                            }
+                        },
+                        cancel: function () {
+
+                        }
+
+                    },
+                    boxWidth: '30%',
+                    useBootstrap: false
+                });
+
+
+
+            })
+    </script>
+    
+    }
+
+    <div class="container bootstrap snippets bootdey">
+        <div class="row" style="margin-left:15%">
+            <div class="col s9">
+                <div class="panel panel-default">
+                    <div class="panel-body p-t-0">
+                        <div class="input-group">
+                            <input type="text" id="example-input1-group2" name="example-input1-group2" class="form-control" placeholder="Search" style="width:85%">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-effect-ripple btn-primary"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        @if (Model != null)
-        {
-            foreach (var record in Model)
+        <div class="row">
+            @if (Model != null)
             {
-                <div class="col s6">
-                    <div class="panel">
-                        <div class="panel-body p-t-10">
-                            <div class="media-main">
-                                <a class="pull-left" href="#">
+                foreach (var record in Model)
+                {
+                    <div class="col s6">
+                        <div class="panel">
+                            <div class="panel-body p-t-10">
+                                <div class="media-main">
+                                    <a class="pull-left" href="#">
 
-                                    <div class="create-round-div" style="        background-color: rgb( @ApplicationHelper.GetRandomNumber(1,999),@ApplicationHelper.GetRandomNumber(1,999),@ApplicationHelper.GetRandomNumber(1,999))">  @record.FullName.ToUpper().Substring(0, 1) </div>
-                                    @*<img class="thumb-lg img-circle bx-s" src="https://bootdey.com/img/Content/user_1.jpg" alt="">*@
-                                </a>
-                                <div class="pull-right btn-group-sm">
-                                    <a href="@Url.Action("add","contacts",new {Id = record.ID })" class="green btn btn-reset tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit">
-                                        <i class="fa fa-pencil"></i>
+                                        <div class="create-round-div" style="        background-color: rgb( @ApplicationHelper.GetRandomNumber(1,999),@ApplicationHelper.GetRandomNumber(1,999),@ApplicationHelper.GetRandomNumber(1,999))">  @record.FullName.ToUpper().Substring(0, 1) </div>
+                                        @*<img class="thumb-lg img-circle bx-s" src="https://bootdey.com/img/Content/user_1.jpg" alt="">*@
                                     </a>
-                                    <a href="#" class="red btn btn-danger tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete">
-                                        <i class="fa fa-close"></i>
-                                    </a>
+                                    <div class="pull-right btn-group-sm">
+                                        <a href="@Url.Action("add","contacts",new {Id = record.ID })" class="green btn btn-reset tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a href="javascript:void()" data-id="@record.ID" class="red btn btn-danger tooltips remove" data-placement="top" data-toggle="tooltip" data-original-title="Delete">
+                                            <i class="fa fa-close"></i>
+                                        </a>
+                                    </div>
+                                    <div class="info">
+                                        <h4>@record.FullName</h4>
+                                        <p class="text-muted">@record.JobTitle</p>
+                                    </div>
                                 </div>
-                                <div class="info">
-                                    <h4>@record.FullName</h4>
-                                    <p class="text-muted">@record.JobTitle</p>
-                                </div>
+                                <div class="clearfix"></div>
+                                <hr>
+                                <ul class="social-links list-inline p-b-10">
+                                    <li>
+                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Twitter"><i class="fa fa-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+                                    </li>
+                                    <li>
+                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Skype"><i class="fa fa-skype"></i></a>
+                                    </li>
+                                    <li>
+                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Message"><i class="fa fa-envelope-o"></i></a>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="clearfix"></div>
-                            <hr>
-                            <ul class="social-links list-inline p-b-10">
-                                <li>
-                                    <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
-                                </li>
-                                <li>
-                                    <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Twitter"><i class="fa fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="LinkedIn"><i class="fa fa-linkedin"></i></a>
-                                </li>
-                                <li>
-                                    <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Skype"><i class="fa fa-skype"></i></a>
-                                </li>
-                                <li>
-                                    <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Message"><i class="fa fa-envelope-o"></i></a>
-                                </li>
-                            </ul>
                         </div>
                     </div>
-                </div>
+                }
             }
-        }
 
 
 
+        </div>
     </div>
-</div>
 
-<div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top">
-    <a class="btn-floating btn-large gradient-45deg-light-blue-cyan gradient-shadow" href="@Url.Action("add","contacts")"><i class="material-icons">add</i></a>
-  
-</div>  
+    <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top">
+        <a class="btn-floating btn-large gradient-45deg-light-blue-cyan gradient-shadow" href="@Url.Action("add","contacts")"><i class="material-icons">add</i></a>
+
+    </div>  
